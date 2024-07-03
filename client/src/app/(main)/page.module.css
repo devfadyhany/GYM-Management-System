@@ -1,0 +1,94 @@
+.link {
+  transition: all ease-in-out 0.2s;
+}
+
+.link:hover {
+  color: var(--primaryColor) !important;
+}
+
+.registerBtn {
+  background-color: var(--secondaryColor);
+  transition: all ease-in-out 0.2s;
+  border: none;
+}
+
+.registerBtn:hover {
+  background-color: var(--secondaryVariant);
+}
+
+.loginBtn {
+  background-color: var(--primaryColor);
+  transition: all ease-in-out 0.2s;
+  border: none;
+}
+
+.loginBtn:hover {
+  background-color: var(--primaryVariant);
+}
+
+.HeroSection {
+  width: 100%;
+  height: 100vh;
+  padding-top: 80px;
+  overflow: hidden;
+  position: relative;
+  background-image: linear-gradient(45deg, var(--secondaryColor), white);
+  z-index: 1;
+}
+
+.HeroText {
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+}
+
+.HeroText h1 {
+  text-shadow: 0px 0px 2px black;
+  z-index: -1;
+}
+
+.HeroText h2 {
+  color: white;
+  font-weight: 700;
+  text-shadow: 5px 5px 15px black;
+  z-index: 1;
+}
+
+.HeroText button {
+  margin-top: 25px;
+  background-color: var(--primaryColor);
+  border: none;
+  transition: all ease-in-out 0.2s;
+  box-shadow: 0px 0px 15px var(--primaryColor);
+  z-index: 5;
+}
+
+.HeroText button:hover {
+  background-color: var(--primaryVariant);
+}
+
+.HeroImg {
+  width: 70%;
+  z-index: 0;
+}
+
+@media screen and (max-width: 1024px) {
+  .HeroText {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .HeroText h2,
+  .HeroText h1 {
+    text-align: center;
+  }
+
+  .HeroImg {
+    position: absolute;
+    top: 0;
+    height: 100vh;
+    width: auto;
+    padding-top: 100px;
+  }
+}
