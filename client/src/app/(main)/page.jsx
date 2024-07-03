@@ -1,8 +1,10 @@
 import { Button, Container, Row } from "react-bootstrap";
 import styles from "./page.module.css";
+import FeatureCard from "../_components/FeatureCard";
 
 export default function Home() {
   return (
+    <>
     <div className={styles.HeroSection}>
       <Container>
         <Row className="align-items-center">
@@ -20,5 +22,14 @@ export default function Home() {
         </Row>
       </Container>
     </div>
+    <h1 className="lead BoldText text-center mt-3">Features</h1>
+    <Container className="py-5">
+      <Row className="gap-5 justify-content-center ">
+        <FeatureCard icon="secureFeature.svg" title="Secured" description="Your Information is Secured On Our Platform."/>
+        <FeatureCard icon="chatFeature.svg" title="Coach Chat" description="Easily Chat With Your Coach For Any Further Questions."/>
+        <FeatureCard icon="organizeFeature.svg" title="Workout Schedule" description="Organize Your Workout Schedule To Easily Remember."/>
+      </Row>
+    </Container>
+    </>
   );
 }
