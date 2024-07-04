@@ -1,0 +1,35 @@
+.UploadGroup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.UploadGroup span {
+  font-size: 16px;
+  font-weight: 700;
+  position: absolute;
+  bottom: 0;
+}
+
+.UploadGroup img {
+  cursor: pointer;
+  transition: all ease-in-out 0.2s;
+}
+
+.UploadGroup img:hover {
+  transform: scale(1.05);
+}
+
+.RegisterBtn,
+.LoginBtn {
+  border: none;
+  background-color: var(--primaryColor);
+  transition: all ease-in-out 0.2s;
+}
+
+.RegisterBtn:hover,
+.LoginBtn:hover {
+  background-color: var(--primaryVariant);
+}

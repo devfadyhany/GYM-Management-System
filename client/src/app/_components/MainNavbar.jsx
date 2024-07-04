@@ -49,8 +49,8 @@ function MainNavbar() {
                 </Link>
               );
             })}
-            <Button className={styles.registerBtn}>Register</Button>
-            <Button className={styles.loginBtn}>Login</Button>
+            <Link href="/register" className={`btn text-white ${styles.registerBtn}`}>Register</Link>
+            <Link href="/login" className={`btn text-white ${styles.loginBtn}`}>Login</Link>
           </Nav>
         </NavbarCollapse>
       </Container>

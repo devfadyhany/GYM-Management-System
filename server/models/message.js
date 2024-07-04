@@ -10,6 +10,11 @@ const messageSchema = new mongoose.Schema({
     ref: "Chat",
     required: true,
   },
+  senderId: {
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "User",
+    required: true,
+  },
   sent_at: {
     type: Date,
     immutable: true,
