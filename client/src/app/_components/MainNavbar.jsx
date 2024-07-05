@@ -15,6 +15,7 @@ import {
 import styles from "../(main)/page.module.css";
 import Link from "next/link";
 import { AuthContext } from "../_context/AuthContext";
+import { CldImage } from "next-cloudinary";
 
 function MainNavbar() {
   const { currentUser, UpdateUser } = useContext(AuthContext);
@@ -70,11 +71,22 @@ function MainNavbar() {
             })}
             {currentUser ? (
               <Row className="px-5 ms-lg-5 gap-3 gap-lg-0 align-items-center">
-                <img
-                  height={50}
-                  className="col-12 col-lg-6"
-                  src={currentUser.avatar || "noAvatar.svg"}
-                />
+                {currentUser.avatar ? (
+                  <CldImage
+                    width="50"
+                    height="50"
+                    className="rounded-circle col-12 col-lg-6"
+                    src={currentUser.avatar}
+                  />
+                ) : (
+                  <img
+                    width="50"
+                    height="50"
+                    className="rounded-circle col-12 col-lg-6"
+                    src="noAvatar.svg"
+                  />
+                )}
+
                 <NavDropdown
                   className="col-12 col-lg-6"
                   title={currentUser.username}
