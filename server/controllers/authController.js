@@ -2,7 +2,6 @@ require("dotenv").config();
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const cookieParser = require("cookie-parser");
 
 const Register = async (req, res) => {
   try {
@@ -49,9 +48,13 @@ const Login = async (req, res) => {
       delete foundUser._doc.password;
       const age = 1000 * 60 * 60 * 24 * 7;
 
-      const token = jwt.sign({ id: foundUser.id }, process.env.JWT_SECRET_KEY, {
-        expiresIn: age,
-      });
+      const token = jwt.sign(
+        { id: foundUser.id, isAdmin: foundUser.isAdmin },
+        process.env.JWT_SECRET_KEY,
+        {
+          expiresIn: age,
+        }
+      );
 
       res
         .cookie("token", token, {

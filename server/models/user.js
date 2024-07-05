@@ -38,6 +38,10 @@ const userSchema = new mongoose.Schema({
     min: 0,
     max: 5,
   },
+  scheduleId: {
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "Schedule"
+  }
 });
 
 module.exports = mongoose.model("User", userSchema);

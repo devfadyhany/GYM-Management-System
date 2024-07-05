@@ -8,9 +8,10 @@ const {
   DeleteUser,
 } = require("../controllers/userController");
 const { Register, Login, Logout } = require("../controllers/authController");
+const { RequireAdmin } = require("../controllers/protectController");
 
 // User Manapulation Routes
-router.get("/", GetUsers);
+router.get("/", RequireAdmin, GetUsers);
 router.get("/:id", GetUser);
 router.put("/:id", EditUser);
 router.delete("/:id", DeleteUser);

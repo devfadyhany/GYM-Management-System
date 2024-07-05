@@ -4,12 +4,14 @@ const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoutes");
 const equipmentRoutes = require("./routes/equipmentRoutes");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cookieParser());
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 
 // DB Connection
 mongoose.connect(process.env.CONNECTION_STRING);
