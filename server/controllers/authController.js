@@ -63,7 +63,7 @@ const Login = async (req, res) => {
           maxAge: age,
         })
         .status(200)
-        .json({ message: "Login Successful!" });
+        .json(foundUser);
     } else {
       res.status(401).json({ message: "Wrong Credintials!" });
     }

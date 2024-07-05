@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useContext } from "react";
 import {
   Button,
   Container,
@@ -7,11 +9,16 @@ import {
   NavbarBrand,
   NavbarCollapse,
   NavbarToggle,
+  NavDropdown,
+  Row,
 } from "react-bootstrap";
 import styles from "../(main)/page.module.css";
 import Link from "next/link";
+import { AuthContext } from "../_context/AuthContext";
 
 function MainNavbar() {
+  const { currentUser, UpdateUser } = useContext(AuthContext);
+
   const Links = [
     {
       key: "Home",
@@ -30,8 +37,16 @@ function MainNavbar() {
     },
   ];
 
+  const HandleLogout = () => {
+    UpdateUser(null);
+  };
+
   return (
-    <Navbar expand="lg" className="fixed-top" style={{ backgroundColor: "var(--mainColor)", zIndex: 100 }}>
+    <Navbar
+      expand="lg"
+      className="fixed-top"
+      style={{ backgroundColor: "var(--mainColor)", zIndex: 100 }}
+    >
       <Container>
         <NavbarBrand
           style={{ color: "var(--primaryColor)", fontSize: "32px" }}
@@ -41,16 +56,53 @@ function MainNavbar() {
         </NavbarBrand>
         <NavbarToggle aria-controls="basic-navbar-nav" />
         <NavbarCollapse id="basic-navbar-nav">
-          <Nav className="ms-auto gap-3 BoldText">
+          <Nav className="ms-auto gap-3 BoldText align-items-lg-center">
             {Links.map((linkElement) => {
               return (
-                <Link key={linkElement.key} className={`text-dark nav-link ${styles.link}`} href={linkElement.path}>
+                <Link
+                  key={linkElement.key}
+                  className={`text-dark nav-link ${styles.link}`}
+                  href={linkElement.path}
+                >
                   {linkElement.label}
                 </Link>
               );
             })}
-            <Link href="/register" className={`btn text-white ${styles.registerBtn}`}>Register</Link>
-            <Link href="/login" className={`btn text-white ${styles.loginBtn}`}>Login</Link>
+            {currentUser ? (
+              <Row className="px-5 ms-lg-5 gap-3 gap-lg-0 align-items-center">
+                <img
+                  height={50}
+                  className="col-12 col-lg-6"
+                  src={currentUser.avatar || "noAvatar.svg"}
+                />
+                <NavDropdown
+                  className="col-12 col-lg-6"
+                  title={currentUser.username}
+                  id="user-menu"
+                >
+                  <NavDropdown.Item href="/">Profile</NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item onClick={HandleLogout}>
+                    LogOut
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </Row>
+            ) : (
+              <>
+                <Link
+                  href="/register"
+                  className={`btn text-white ${styles.registerBtn}`}
+                >
+                  Register
+                </Link>
+                <Link
+                  href="/login"
+                  className={`btn text-white ${styles.loginBtn}`}
+                >
+                  Login
+                </Link>
+              </>
+            )}
           </Nav>
         </NavbarCollapse>
       </Container>

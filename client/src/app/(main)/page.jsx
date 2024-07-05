@@ -9,7 +9,7 @@ export default function Home() {
     <div className={styles.HeroSection}>
       <Container>
         <Row className="align-items-center">
-          <div className={`col-12 col-lg-7 ${styles.HeroText}`}>
+          <div className={`col-12 col-lg-6 ${styles.HeroText}`}>
             <h1 className="lead BoldText">Unleash Your Potential</h1>
             <h2>
               We'll help you reach your fitness goals in a supportive and
@@ -17,7 +17,7 @@ export default function Home() {
             </h2>
             <Link href="/memberships" className="btn px-5 py-3 BoldText text-white">Check Our Memberships</Link>
           </div>
-          <div className="col-12 col-lg-5 d-flex justify-content-center justify-content-lg-end">
+          <div className="col-12 col-lg-6 d-flex justify-content-center justify-content-lg-end">
             <img className={styles.HeroImg} src="Hero.webp" />
           </div>
         </Row>
