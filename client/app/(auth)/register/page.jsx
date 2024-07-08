@@ -6,8 +6,7 @@ function RegisterPage() {
   return (
     <Container>
       <Row
-        style={{ height: "100vh" }}
-        className="pt-4 justify-content-between align-items-center"
+        className="pb-5 justify-content-between align-items-center"
       >
         <RegisterForm />
         <img

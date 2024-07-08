@@ -4,7 +4,7 @@ function Authlayout({ children }) {
   return (
     <div
       style={{
-        height: "130vh",
+        minHeight: "100vh",
         backgroundImage:
           "linear-gradient(-45deg, var(--secondaryColor), white)",
       }}

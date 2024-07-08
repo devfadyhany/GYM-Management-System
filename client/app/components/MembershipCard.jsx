@@ -22,7 +22,7 @@ function MembershipCard({ icon, title, description, features }) {
           {features && (
             <ul>
               {features.map((feature) => {
-                return <li>{feature}</li>;
+                return <li key={title}>{feature}</li>;
               })}
             </ul>
           )}
