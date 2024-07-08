@@ -1,5 +1,7 @@
 Database schema.txt
 GYM management system.txt
+
+# NodeJS
 server/.env
 server/node_modules
 

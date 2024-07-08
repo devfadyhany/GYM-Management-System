@@ -2,7 +2,6 @@
 
 import React, { useContext } from "react";
 import {
-  Button,
   Container,
   Nav,
   Navbar,
@@ -14,11 +13,13 @@ import {
 } from "react-bootstrap";
 import styles from "../(main)/page.module.css";
 import Link from "next/link";
-import { AuthContext } from "../_context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 import { CldImage } from "next-cloudinary";
+import { usePathname } from "next/navigation";
 
 function MainNavbar() {
   const { currentUser, UpdateUser } = useContext(AuthContext);
+  const pathname = usePathname();
 
   const Links = [
     {
@@ -62,7 +63,9 @@ function MainNavbar() {
               return (
                 <Link
                   key={linkElement.key}
-                  className={`text-dark nav-link ${styles.link}`}
+                  className={`text-dark nav-link ${
+                    pathname === linkElement.path ? `${styles.active}` : ""
+                  } ${styles.link}`}
                   href={linkElement.path}
                 >
                   {linkElement.label}

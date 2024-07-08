@@ -13,7 +13,7 @@ import {
 } from "react-bootstrap";
 import styles from "../(auth)/register/page.module.css";
 import { useRouter } from "next/navigation";
-import apiRequest from "../_lib/apiRequest";
+import apiRequest from "../lib/apiRequest";
 
 function RegisterForm() {
   const [avatar, setAvatar] = useState(null);

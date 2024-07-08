@@ -11,8 +11,8 @@ import {
 } from "react-bootstrap";
 import styles from "../(auth)/register/page.module.css";
 import { useRouter } from "next/navigation";
-import apiRequest from "../_lib/apiRequest";
-import { AuthContext } from "../_context/AuthContext";
+import apiRequest from "../lib/apiRequest";
+import { AuthContext } from "../context/AuthContext";
 
 function LoginForm() {
   const [error, setError] = useState("");

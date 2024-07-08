@@ -1,6 +1,6 @@
 import { Button, Container, Row } from "react-bootstrap";
 import styles from "./page.module.css";
-import FeatureCard from "../_components/FeatureCard";
+import FeatureCard from "../components/FeatureCard";
 import Link from "next/link";
 
 export default function Home() {

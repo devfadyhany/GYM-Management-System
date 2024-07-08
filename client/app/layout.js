@@ -1,4 +1,4 @@
-import { AuthContextProvider } from "./_context/AuthContext";
+import { AuthContextProvider } from "./context/AuthContext";
 import "./globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 

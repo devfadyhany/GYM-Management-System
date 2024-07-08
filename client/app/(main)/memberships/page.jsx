@@ -1,4 +1,4 @@
-import MembershipCard from '@/app/_components/MembershipCard'
+import MembershipCard from '../../components/MembershipCard'
 import React from 'react'
 import { Container, Row } from 'react-bootstrap'
 

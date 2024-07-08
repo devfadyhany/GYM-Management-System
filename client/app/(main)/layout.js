@@ -1,6 +1,6 @@
 import React from "react";
-import MainNavbar from "../_components/MainNavbar";
-import MainFooter from "../_components/MainFooter";
+import MainNavbar from "../components/MainNavbar";
+import MainFooter from "../components/MainFooter";
 
 function Homelayout({ children }) {
   return (

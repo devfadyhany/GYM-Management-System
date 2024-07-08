@@ -1,3 +1,7 @@
+.active {
+  color: var(--primaryColor) !important;
+}
+
 .link {
   transition: all ease-in-out 0.2s;
 }

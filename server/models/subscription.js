@@ -9,7 +9,6 @@ const subscriptionSchema = new mongoose.Schema({
   coachId: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: "User",
-    required: true,
   },
   planType: {
     type: String,
