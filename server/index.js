@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoutes");
 const equipmentRoutes = require("./routes/equipmentRoutes");
+const subscriptionRoutes = require("./routes/subscriptionRoutes");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
@@ -28,6 +29,7 @@ db.once("open", () => {
 // Routes
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/equipment", equipmentRoutes);
+app.use("/api/v1/subscription", subscriptionRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);

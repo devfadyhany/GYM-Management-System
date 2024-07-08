@@ -8,7 +8,7 @@ const {
   DeleteUser,
 } = require("../controllers/userController");
 const { Register, Login, Logout } = require("../controllers/authController");
-const { RequireAdmin } = require("../controllers/protectController");
+const { RequireAdmin } = require("../middlewares/RequireAdmin");
 
 // User Manapulation Routes
 router.get("/", RequireAdmin, GetUsers);
