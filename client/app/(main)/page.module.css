@@ -1,3 +1,13 @@
+.mainNavbar {
+  background-color: var(--mainColor);
+  z-index: 100;
+}
+
+.navbarLogo {
+  color: var(--primaryColor);
+  font-size: 32px;
+}
+
 .active {
   color: var(--primaryColor) !important;
 }

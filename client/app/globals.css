@@ -18,6 +18,14 @@ a {
   text-decoration: none !important;
 }
 
+.primary {
+  color: var(--primaryColor);
+}
+
+.secondary {
+  color: var(--secondaryColor);
+}
+
 .BoldText {
     font-weight: 700 !important;
 }

@@ -4,11 +4,15 @@ const {
   CreateStripeSession,
   CheckStripePaymentSession,
 } = require("../controllers/paymentController");
-const { verifyToken } = require("../middlewares/verifyToken");
+const {
+  GetUserSubscription,
+} = require("../controllers/subscriptionController");
 
 const router = express.Router();
 
-router.post("/", verifyToken, CreateStripeSession);
-router.get("/stripe-session", verifyToken, CheckStripePaymentSession);
+router.get("/:subId", GetUserSubscription);
+
+router.post("/", CreateStripeSession);
+router.post("/stripe-session", CheckStripePaymentSession);
 
 module.exports = router;

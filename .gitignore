@@ -30,7 +30,6 @@ client/yarn-debug.log*
 client/yarn-error.log*
 
 # local env files
-client/.env
 client/.env*.local
 
 # vercel

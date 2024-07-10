@@ -1,11 +1,9 @@
 .membershipCard {
+  cursor: pointer;
   transition: all ease-in-out 0.2s;
 }
 
 .membershipCard:hover {
-  transform: scale(1.05);
-}
-
-.membershipCard:hover .card {
   border: 2px solid var(--secondaryColor);
+  transform: scale(1.05);
 }

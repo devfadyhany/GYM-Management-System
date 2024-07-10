@@ -8,10 +8,11 @@ const CreateStripeSession = async (req, res) => {
   const userId = req.body.userId;
   const quantity = req.body.quantity;
   const priceId = req.body.priceId;
+  const membership = req.body.membership;
 
   try {
     const session = await stripe.checkout.sessions.create({
-      success_url: `${process.env.CLIENT_URL}`,
+      success_url: `${process.env.CLIENT_URL}/subscribe`,
       cancel_url: `${process.env.CLIENT_URL}`,
       payment_method_types: ["card"],
       mode: "subscription",
@@ -25,8 +26,21 @@ const CreateStripeSession = async (req, res) => {
 
     const sessionId = session.id;
 
+    let numOfMonths;
+
+    if (membership == "basic") {
+      numOfMonths = 3;
+    } else if (membership == "pro") {
+      numOfMonths = 6;
+    } else if (membership == "premium") {
+      numOfMonths = 12;
+    }
+
+    // clear previous sessions
+    await checkouts.deleteMany({ userId });
+
     // store session id
-    await checkouts.create({ userId, sessionId });
+    await checkouts.create({ userId, sessionId, numOfMonths });
 
     res.json({ url: session.url });
   } catch (err) {
@@ -35,37 +49,46 @@ const CreateStripeSession = async (req, res) => {
 };
 
 const CheckStripePaymentSession = async (req, res) => {
-  const userId = req.body;
-  const membership = req.body.membership;
-  let startDate = Date.now();
-  let endDate;
-  if (membership == "basic") {
-    endDate = new Date(startDate.setMonth(startDate.getMonth() + 3));
-  } else if (membership == "pro") {
-    endDate = new Date(startDate.setMonth(startDate.getMonth() + 6));
-  } else if (membership == "premium") {
-    endDate = new Date(startDate.setMonth(startDate.getMonth() + 12));
-  }
-
-  const stripe_session = await checkouts.findOne({ userId });
-
-  if (!stripe_session.sessionId) {
-    return res.json({ message: "fail" });
-  }
+  const userId = req.body.userId;
+  let membership;
 
   try {
+    const stripe_session = await checkouts.findOne({ userId });
+
+    let startDate = new Date();
+    let endDate = new Date(
+      startDate.setMonth(startDate.getMonth() + stripe_session.numOfMonths)
+    );
+
+    if (!stripe_session.sessionId) {
+      return res.status(404).json({ message: "fail" });
+    }
+
+    if (stripe_session.numOfMonths === 3) {
+      membership = "basic";
+    } else if (stripe_session.numOfMonths === 6) {
+      membership = "pro";
+    } else {
+      membership = "premium";
+    }
+
     const session = await stripe.checkout.sessions.retrieve(
       stripe_session.sessionId
     );
 
     if (session && session.status === "complete") {
+
       const result = await subscription.create({
         clientId: userId,
         planType: membership,
         endAt: endDate,
       });
 
-      await user.updateOne({ id: userId }, { activeSubscription: result.id });
+      await user.updateOne({ _id: userId }, { activeSubscription: result._id });
+
+      res.status(200).json(result);
+    }else {
+      res.status(404).json({message: "Subscription Failed"})
     }
   } catch (err) {
     res.status(500).json({ error: err.message });

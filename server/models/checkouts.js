@@ -10,6 +10,10 @@ const checkoutsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  numOfMonths: {
+    type: Number,
+    required: true,
+  }
 });
 
 module.exports = mongoose.model("Checkouts", checkoutsSchema);
