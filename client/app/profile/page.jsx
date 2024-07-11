@@ -27,8 +27,10 @@ function ProfilePage() {
   };
 
   useEffect(() => {
-    GetSubscriptionDetails();
-  }, []);
+    if (currentUser !== null) {
+      GetSubscriptionDetails();
+    }
+  }, [currentUser]);
 
   return (
     <div>
@@ -107,6 +109,7 @@ function ProfilePage() {
                 className="rounded w-100 h-auto "
                 src={currentUser.avatar || "GYM-Management-System/d_avatar"}
                 alt="User Avatar"
+                priority
               />
             </div>
           </Row>

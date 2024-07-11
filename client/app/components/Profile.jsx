@@ -15,10 +15,12 @@ function Profile({ user, updateUser }) {
         alt="User Avatar"
         className="w-25 h-25  rounded-circle col-6"
         src={user.avatar || "GYM-Management-System/d_avatar"}
+        priority
       />
 
       <NavDropdown className="col-6" title={user.username} id="user-menu">
         <NavDropdown.Item href="/profile">👤Profile</NavDropdown.Item>
+        {user.isAdmin && <NavDropdown.Item href="/admin">⚙️Admin Dashboard</NavDropdown.Item>}
         <NavDropdown.Divider />
         <NavDropdown.Item onClick={HandleLogout}>↩️LogOut</NavDropdown.Item>
       </NavDropdown>

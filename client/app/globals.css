@@ -19,11 +19,19 @@ a {
 }
 
 .primary {
-  color: var(--primaryColor);
+  color: var(--primaryColor) !important;
 }
 
 .secondary {
-  color: var(--secondaryColor);
+  color: var(--secondaryColor) !important;
+}
+
+.bgPrimary {
+  background-color: var(--primaryColor) !important;
+}
+
+.bgSecondary {
+  background-color: var(--secondaryColor) !important;
 }
 
 .BoldText {

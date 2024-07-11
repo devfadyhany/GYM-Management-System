@@ -7,7 +7,7 @@ import Link from "next/link";
 import apiRequest from "../lib/apiRequest";
 
 function SubscribePage() {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, UpdateUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [response, setResponse] = useState(null);
 
@@ -16,8 +16,12 @@ function SubscribePage() {
       const res = await apiRequest.post("/subscription/stripe-session", {
         userId: currentUser._id,
       });
-      
+
       setResponse(res);
+
+      if (res.status === 200) {
+        UpdateUser({ ...currentUser, activeSubscription: res.data._id });
+      }
     } catch (err) {
       console.log(err);
     } finally {

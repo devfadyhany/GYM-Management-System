@@ -5,22 +5,24 @@ const { useState, createContext, useEffect } = require("react");
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  // useEffect(() => {
-  //   if (JSON.parse(localStorage.getItem("User")) != null) {
-  //     setCurrentUser(JSON.parse(localStorage.getItem("User")));
-  //   }
-  // }, []);
+  let firstTime = false;
+  const [currentUser, setCurrentUser] = useState(null);
 
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem("User")) || null
-  );
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCurrentUser(JSON.parse(localStorage.getItem("User")));
+      firstTime = true;
+    }
+  }, []);
 
   const UpdateUser = (data) => {
     setCurrentUser(data);
   };
 
   useEffect(() => {
-    localStorage.setItem("User", JSON.stringify(currentUser));
+    if (!firstTime) {
+      localStorage.setItem("User", JSON.stringify(currentUser));
+    }
   }, [currentUser]);
 
   return (
