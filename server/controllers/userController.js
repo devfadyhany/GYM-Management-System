@@ -1,9 +1,18 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 
-const GetUsers = async (req, res) => {
+const GetClients = async (req, res) => {
   try {
-    const users = await User.find();
+    const users = await User.find({ isCoach: false });
+    res.status(200).json(users);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+const GetCoaches = async (req, res) => {
+  try {
+    const users = await User.find({ isCoach: true });
     res.status(200).json(users);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -52,4 +61,4 @@ const DeleteUser = async (req, res) => {
   }
 };
 
-module.exports = { GetUsers, GetUser, EditUser, DeleteUser };
+module.exports = { GetClients, GetCoaches, GetUser, EditUser, DeleteUser };

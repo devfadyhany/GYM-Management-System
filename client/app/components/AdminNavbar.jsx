@@ -2,29 +2,28 @@
 
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { Row } from "react-bootstrap";
 import styles from "../(adminDashboard)/admin/page.module.css";
 
 const Links = [
   {
     icon: "👤",
     displayText: "Clients",
-    path: "/clients",
+    path: "/admin/clients",
   },
   {
     icon: "🏋",
     displayText: "Coaches",
-    path: "/coaches",
+    path: "/admin/coaches",
   },
   {
     icon: "💪",
-    displayText: "Equipments",
-    path: "/equipments",
+    displayText: "Equipment",
+    path: "/admin/equipment",
   },
   {
     icon: "💳",
     displayText: "Subscriptions",
-    path: "/subscriptions",
+    path: "/admin/subscriptions",
   },
 ];
 
@@ -48,36 +47,35 @@ function AdminNavbar() {
   }, []);
 
   return (
-    <div className="container-fluid position-fixed">
-      <Row>
-        <div className="bg-dark col-2 col-md-3 min-vh-100">
-          <h1 href="#" className="lead text-center">
-            {width > 768 ? "GYM" : "G"}
-          </h1>
-          <hr className="text-secondary" />
-          <ul className="nav flex-column">
-            {Links.map((linkElement) => {
-              return (
-                <li
-                  key={linkElement.displayText}
-                  className="nav-item text-white fs-3"
-                >
-                  <Link
-                    href={linkElement.path}
-                    className={`nav-link primary ${
-                      width <= 1032 ? "text-center" : ""
-                    } ${styles.SidebarLink}`}
-                  >
-                    {`${linkElement.icon}${
-                      width > 1032 ? linkElement.displayText : ""
-                    }`}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      </Row>
+    <div
+      style={{ left: "0", minHeight: "100vh" }}
+      className="bg-dark col-2 col-md-3 position-fixed"
+    >
+      <Link href="/admin" className="lead d-block text-center">
+        {width > 768 ? "GYM" : "G"}
+      </Link>
+      <hr className="text-secondary" />
+      <ul className="nav flex-column">
+        {Links.map((linkElement) => {
+          return (
+            <li
+              key={linkElement.displayText}
+              className="nav-item text-white fs-3"
+            >
+              <Link
+                href={linkElement.path}
+                className={`nav-link primary ${
+                  width <= 1032 ? "text-center" : ""
+                } ${styles.SidebarLink}`}
+              >
+                {`${linkElement.icon}${
+                  width > 1032 ? linkElement.displayText : ""
+                }`}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }

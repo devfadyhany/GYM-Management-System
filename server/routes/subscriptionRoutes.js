@@ -6,10 +6,12 @@ const {
 } = require("../controllers/paymentController");
 const {
   GetUserSubscription,
+  GetAllSubscriptions,
 } = require("../controllers/subscriptionController");
 
 const router = express.Router();
 
+router.get("/", GetAllSubscriptions);
 router.get("/:subId", GetUserSubscription);
 
 router.post("/", CreateStripeSession);

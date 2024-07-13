@@ -15,7 +15,7 @@ import styles from "../(auth)/register/page.module.css";
 import { useRouter } from "next/navigation";
 import apiRequest from "../lib/apiRequest";
 
-function RegisterForm() {
+function RegisterForm({ admin }) {
   const [avatar, setAvatar] = useState(null);
 
   const [error, setError] = useState("");
@@ -49,9 +49,14 @@ function RegisterForm() {
   };
 
   return (
-    <Form onSubmit={HandleSubmit} className="h-100 col-12 col-lg-6">
+    <Form
+      onSubmit={HandleSubmit}
+      className={`h-100 col-12 ${!admin ? "col-lg-6" : ""}`}
+    >
       <Container>
-        <h1 className="lead BoldText text-center mb-5">Register Form</h1>
+        {!admin && (
+          <h1 className="lead BoldText text-center mb-5">Register Form</h1>
+        )}
         <Row className="gap-4">
           <FormControl
             name="username"
@@ -69,7 +74,7 @@ function RegisterForm() {
             placeholder="Enter your password."
           />
 
-          <FormCheck name="isCoach" label="Are you a Coach ?" />
+          {!admin && <FormCheck name="isCoach" label="Are you a Coach ?" />}
 
           <CldUploadWidget
             name="avatar"

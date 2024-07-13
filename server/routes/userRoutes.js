@@ -2,16 +2,18 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  GetUsers,
+  GetClients,
   GetUser,
   EditUser,
   DeleteUser,
+  GetCoaches,
 } = require("../controllers/userController");
 const { Register, Login, Logout } = require("../controllers/authController");
 const { RequireAdmin } = require("../middlewares/RequireAdmin");
 
 // User Manapulation Routes
-router.get("/", RequireAdmin, GetUsers);
+router.get("/clients", RequireAdmin, GetClients);
+router.get("/coaches", RequireAdmin, GetCoaches);
 router.get("/:id", GetUser);
 router.put("/:id", EditUser);
 router.delete("/:id", DeleteUser);
