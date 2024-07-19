@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import styles from "../(adminDashboard)/admin/page.module.css";
+import styles from "./sidebar.module.css";
 
 const Links = [
   {

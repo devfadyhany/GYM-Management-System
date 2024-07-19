@@ -1,4 +1,4 @@
-import RegisterForm from "@/app/components/RegisterForm";
+import RegisterForm from "@/app/components/RegisterForm/RegisterForm";
 import React from "react";
 import { Row } from "react-bootstrap";
 

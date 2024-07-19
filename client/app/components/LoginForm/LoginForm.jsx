@@ -9,10 +9,10 @@ import {
   Row,
   Spinner,
 } from "react-bootstrap";
-import styles from "../(auth)/register/page.module.css";
+import styles from "./login.module.css";
 import { useRouter } from "next/navigation";
-import apiRequest from "../lib/apiRequest";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "@/app/context/AuthContext";
+import apiRequest from "@/app/lib/apiRequest";
 
 function LoginForm() {
   const [error, setError] = useState("");

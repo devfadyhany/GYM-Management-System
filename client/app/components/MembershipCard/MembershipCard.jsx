@@ -2,10 +2,10 @@
 
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Card, CardBody, CardImg, CardText, CardTitle } from "react-bootstrap";
-import styles from "../(main)/memberships/page.module.css";
+import styles from "./membership.module.css";
 import { useRouter } from "next/navigation";
-import apiRequest from "../lib/apiRequest";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "@/app/context/AuthContext";
+import apiRequest from "@/app/lib/apiRequest";
 
 function MembershipCard({ icon, title, description, features }) {
   const { currentUser } = useContext(AuthContext);

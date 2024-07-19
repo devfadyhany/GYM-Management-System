@@ -1,6 +1,6 @@
 "use client"
 
-import MembershipCard from '../../components/MembershipCard'
+import MembershipCard from '@/app/components/MembershipCard/MembershipCard'
 import React from 'react'
 import { Container, Row } from 'react-bootstrap'
 

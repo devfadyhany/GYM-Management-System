@@ -11,9 +11,9 @@ import {
   Row,
   Spinner,
 } from "react-bootstrap";
-import styles from "../(auth)/register/page.module.css";
+import styles from "./register.module.css";
 import { useRouter } from "next/navigation";
-import apiRequest from "../lib/apiRequest";
+import apiRequest from "@/app/lib/apiRequest";
 
 function RegisterForm({ admin }) {
   const [avatar, setAvatar] = useState(null);

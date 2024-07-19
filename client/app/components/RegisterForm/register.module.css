@@ -22,14 +22,12 @@
   transform: scale(1.05);
 }
 
-.RegisterBtn,
-.LoginBtn {
+.RegisterBtn {
   border: none;
   background-color: var(--primaryColor);
   transition: all ease-in-out 0.2s;
 }
 
-.RegisterBtn:hover,
-.LoginBtn:hover {
+.RegisterBtn:hover {
   background-color: var(--primaryVariant);
 }

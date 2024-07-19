@@ -1,4 +1,4 @@
-import LoginForm from "../../components/LoginForm";
+import LoginForm from "@/app/components/LoginForm/LoginForm";
 import React from "react";
 import { Container, Row } from "react-bootstrap";
 

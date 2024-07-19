@@ -9,12 +9,12 @@ import {
   NavbarCollapse,
   NavbarToggle,
 } from "react-bootstrap";
-import styles from "../(main)/page.module.css";
+import styles from "./navbar.module.css";
 import Link from "next/link";
-import { AuthContext } from "../context/AuthContext";
 import { usePathname } from "next/navigation";
 import Profile from "./Profile";
 import AuthLinks from "./AuthLinks";
+import { AuthContext } from "@/app/context/AuthContext";
 
 const Links = [
   {
