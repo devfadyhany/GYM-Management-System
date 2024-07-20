@@ -4,6 +4,7 @@ import apiRequest from "@/app/lib/apiRequest";
 import { CldImage } from "next-cloudinary";
 import React, { useState } from "react";
 import { Button, FormControl, Spinner } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 function CheckSubscription() {
   const [id, setId] = useState("");
@@ -14,6 +15,7 @@ function CheckSubscription() {
 
   const CheckUserSubscription = async () => {
     try {
+      setCheckedUser(null);
       setLoading(true);
 
       const userRes = await apiRequest.get(`/user/${id}`);
@@ -32,7 +34,11 @@ function CheckSubscription() {
 
       setSubscribed(false);
     } catch (err) {
-      console.log(err);
+      toast.error("User Not Found!", {
+        position: "top-right",
+        autoClose: 1000,
+        theme: "light",
+      });
     } finally {
       setLoading(false);
     }

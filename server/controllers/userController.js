@@ -1,3 +1,4 @@
+const subscription = require("../models/subscription");
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 
@@ -14,6 +15,42 @@ const GetCoaches = async (req, res) => {
   try {
     const users = await User.find({ isCoach: true });
     res.status(200).json(users);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+const ApproveCoach = async (req, res) => {
+  const coachId = req.params.id;
+
+  try {
+    const result = await User.findByIdAndUpdate(coachId, { Approved: true });
+
+    res.status(200).json({ message: "Coach has been approved!" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+const AssignCoach = async (req, res) => {
+  const clientId = req.body.clientId;
+  const coachId = req.body.coachId;
+
+  try {
+    await User.findByIdAndUpdate(clientId, { assignedCoachId: coachId });
+
+    const coach = await User.findById(coachId);
+
+    await User.findByIdAndUpdate(coachId, {
+      numOfClients: coach.numOfClients + 1,
+    });
+
+    await subscription.findOneAndUpdate(
+      { clientId: clientId },
+      { coachId: coachId }
+    );
+
+    res.status(200).json({ message: "Coach has been assigned successfully!" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -73,4 +110,12 @@ const DeleteUser = async (req, res) => {
   }
 };
 
-module.exports = { GetClients, GetCoaches, GetUser, EditUser, DeleteUser };
+module.exports = {
+  GetClients,
+  GetCoaches,
+  ApproveCoach,
+  AssignCoach,
+  GetUser,
+  EditUser,
+  DeleteUser,
+};

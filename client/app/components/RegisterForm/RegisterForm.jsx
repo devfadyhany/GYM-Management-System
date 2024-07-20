@@ -31,14 +31,26 @@ function RegisterForm({ admin }) {
     const formData = new FormData(e.target);
     const { username, email, password, isCoach } = Object.fromEntries(formData);
 
-    try {
-      const result = await apiRequest.post("/user/", {
+    let RequestBody;
+    if (avatar) {
+      RequestBody = {
         avatar: avatar.public_id,
         username,
         email,
         password,
         isCoach,
-      });
+      };
+    } else {
+      RequestBody = {
+        username,
+        email,
+        password,
+        isCoach,
+      };
+    }
+
+    try {
+      const result = await apiRequest.post("/user/", RequestBody);
 
       router.push("/login");
     } catch (err) {
@@ -74,11 +86,13 @@ function RegisterForm({ admin }) {
             placeholder="Enter your password."
           />
 
-          {!admin && <FormCheck name="isCoach" label="Are you a Coach ?" />}
+          {!admin && (
+            <FormCheck name="isCoach" label="Are you a Coach ?" value={true} />
+          )}
 
           <CldUploadWidget
             name="avatar"
-            onUpload={(result) => setAvatar(result.info)}
+            onSuccess={(result) => setAvatar(result.info)}
             uploadPreset="UserAvatar"
           >
             {({ open }) => {

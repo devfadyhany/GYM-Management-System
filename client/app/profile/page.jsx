@@ -7,11 +7,15 @@ import React, { useContext, useEffect, useState } from "react";
 import { Button, Container, Row, Spinner } from "react-bootstrap";
 import apiRequest from "../lib/apiRequest";
 import QRCode from "react-qr-code";
+import { toast } from "react-toastify";
 
 function ProfilePage() {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, UpdateUser } = useContext(AuthContext);
   const [subscription, setSubscription] = useState(null);
+  const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const [newUsername, setNewUsername] = useState("");
 
   const GetSubscriptionDetails = async () => {
     try {
@@ -27,9 +31,31 @@ function ProfilePage() {
     }
   };
 
+  const ChangeUsername = async () => {
+    try {
+      let newUser = currentUser;
+      newUser.username = newUsername;
+
+      await apiRequest.put(`/user/${currentUser._id}`, newUser);
+
+      setEditMode(false);
+
+      UpdateUser((prev) => {
+        return { ...prev, username: newUsername };
+      });
+    } catch (err) {
+      toast.error(err.message, {
+        position: "top-right",
+        autoClose: 1000,
+        theme: "light",
+      });
+    }
+  };
+
   useEffect(() => {
     if (currentUser !== null) {
       GetSubscriptionDetails();
+      setNewUsername(currentUser.username);
     }
   }, [currentUser]);
 
@@ -48,16 +74,36 @@ function ProfilePage() {
                 <h3 className="primary">
                   Username:{" "}
                   <span className="secondary">
-                    {currentUser.isCoach
-                      ? `Coach.${currentUser.username}`
-                      : currentUser.username}
+                    <>
+                      {editMode ? (
+                        <>
+                          <input
+                            value={newUsername}
+                            onChange={(e) => setNewUsername(e.target.value)}
+                            className="me-3"
+                            type="text"
+                          />
+                          <Button onClick={ChangeUsername} variant="success">
+                            ✅
+                          </Button>
+                        </>
+                      ) : (
+                        <>
+                          {currentUser.isCoach
+                            ? `Coach.${currentUser.username}`
+                            : currentUser.username}
+                        </>
+                      )}
+                    </>
                   </span>
                 </h3>
                 <h3 className="primary">
                   E-mail: <span className="secondary">{currentUser.email}</span>
                 </h3>
                 <br></br>
-                <Button variant="success">Change Username</Button>
+                <Button onClick={() => setEditMode(true)} variant="success">
+                  Change Username
+                </Button>
               </div>
 
               <div

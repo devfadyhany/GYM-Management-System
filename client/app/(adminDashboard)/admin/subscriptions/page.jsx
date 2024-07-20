@@ -33,39 +33,40 @@ function AdminSubscriptionsDashboard() {
       ) : (
         <>
           {subscriptions.length > 0 ? (
-            <Table responsive="sm">
-              <thead>
-                <tr>
-                  <th className="bgPrimary text-white">#</th>
-                  <th className="bgPrimary text-white">Client</th>
-                  <th className="bgPrimary text-white">Assigned Coach</th>
-                  <th className="bgPrimary text-white">Created At</th>
-                  <th className="bgPrimary text-white">End At</th>
-                  <th className="bgPrimary text-white">Operations</th>
-                </tr>
-              </thead>
-              <tbody>
-                {subscriptions.map((subscription, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>{subscription._id}</td>
-                      <td>{subscription.clientId}</td>
-                      <td>
-                        {subscription.coachId ? subscription.coachId : "-"}
-                      </td>
-                      <td>{new Date(subscription.createdAt).toDateString()}</td>
-                      <td>{new Date(subscription.endAt).toDateString()}</td>
-                      <td className="d-flex">
-                        <Button className="me-2" variant="success">
-                          ✏️
-                        </Button>
-                        <Button variant="danger">X</Button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </Table>
+            <div className="table-responsive-sm overflow-x-scroll">
+              <Table responsive="sm">
+                <thead>
+                  <tr>
+                    <th className="bgPrimary text-white">#</th>
+                    <th className="bgPrimary text-white">Client</th>
+                    <th className="bgPrimary text-white">Assigned Coach</th>
+                    <th className="bgPrimary text-white">Created At</th>
+                    <th className="bgPrimary text-white">End At</th>
+                    <th className="bgPrimary text-white">Operations</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {subscriptions.map((subscription, index) => {
+                    return (
+                      <tr className="text-nowrap" key={index}>
+                        <td>{subscription._id}</td>
+                        <td>{subscription.clientId}</td>
+                        <td>
+                          {subscription.coachId ? subscription.coachId : "-"}
+                        </td>
+                        <td>
+                          {new Date(subscription.createdAt).toDateString()}
+                        </td>
+                        <td>{new Date(subscription.endAt).toDateString()}</td>
+                        <td className="d-flex justify-content-center">
+                          <Button variant="danger">🗑️</Button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </Table>
+            </div>
           ) : (
             <h3>No Subscriptions Found!</h3>
           )}

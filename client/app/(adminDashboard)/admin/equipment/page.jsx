@@ -42,37 +42,39 @@ function AdminEquipmentDashboard() {
       ) : (
         <>
           {equipment.length > 0 ? (
-            <Table responsive="sm">
-              <thead>
-                <tr>
-                  <th className="bgPrimary text-white">#</th>
-                  <th className="bgPrimary text-white">Name</th>
-                  <th className="bgPrimary text-white">Description</th>
-                  <th className="bgPrimary text-white">Targeted Muscles</th>
-                  <th className="bgPrimary text-white">Quantity</th>
-                  <th className="bgPrimary text-white">Operations</th>
-                </tr>
-              </thead>
-              <tbody>
-                {equipment.map((machine, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>{machine._id}</td>
-                      <td>{machine.name}</td>
-                      <td>{machine.description}</td>
-                      <td>{machine.targetedMuscles}</td>
-                      <td>{machine.quantity}</td>
-                      <td className="d-flex">
-                        <Button className="me-2" variant="success">
-                          ✏️
-                        </Button>
-                        <Button variant="danger">X</Button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </Table>
+            <div className="table-responsive-sm overflow-x-scroll">
+              <Table responsive="sm">
+                <thead>
+                  <tr>
+                    <th className="bgPrimary text-white">#</th>
+                    <th className="bgPrimary text-white">Name</th>
+                    <th className="bgPrimary text-white">Description</th>
+                    <th className="bgPrimary text-white">Targeted Muscles</th>
+                    <th className="bgPrimary text-white">Quantity</th>
+                    <th className="bgPrimary text-white">Operations</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {equipment.map((machine, index) => {
+                    return (
+                      <tr className="text-nowrap" key={index}>
+                        <td>{machine._id}</td>
+                        <td>{machine.name}</td>
+                        <td>{machine.description}</td>
+                        <td>{machine.targetedMuscles}</td>
+                        <td>{machine.quantity}</td>
+                        <td className="d-flex justify-content-center">
+                          <Button className="me-2" variant="success">
+                            ✏️
+                          </Button>
+                          <Button variant="danger">🗑️</Button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </Table>
+            </div>
           ) : (
             <h3>No Equipment Found!</h3>
           )}

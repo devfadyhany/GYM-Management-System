@@ -36,13 +36,18 @@ const userSchema = new mongoose.Schema({
   },
   numOfClients: {
     type: Number,
+    default: 0,
     min: 0,
     max: 5,
   },
   scheduleId: {
     type: mongoose.SchemaTypes.ObjectId,
-    ref: "Schedule"
-  }
+    ref: "Schedule",
+  },
+  Approved: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = mongoose.model("User", userSchema);
