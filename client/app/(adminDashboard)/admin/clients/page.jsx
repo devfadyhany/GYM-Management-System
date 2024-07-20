@@ -22,7 +22,7 @@ function AdminClientsDashboard() {
 
   useEffect(() => {
     GetClients();
-  },[]);
+  }, []);
 
   return (
     <>
@@ -45,7 +45,7 @@ function AdminClientsDashboard() {
                 </tr>
               </thead>
               <tbody>
-                {clients.map((client,index) => {
+                {clients.map((client, index) => {
                   return (
                     <tr key={index}>
                       <td>{client._id}</td>
@@ -59,9 +59,9 @@ function AdminClientsDashboard() {
                           ? client.activeSubscription
                           : "-"}
                       </td>
-                      <td>
+                      <td className="d-flex">
                         <Button className="me-2" variant="success">
-                          ...
+                          ✏️
                         </Button>
                         <Button variant="danger">X</Button>
                       </td>

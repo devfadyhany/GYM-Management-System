@@ -53,13 +53,11 @@ function AdminSubscriptionsDashboard() {
                       <td>
                         {subscription.coachId ? subscription.coachId : "-"}
                       </td>
-                      <td>
-                        {new Date(subscription.createdAt).toDateString()}
-                      </td>
+                      <td>{new Date(subscription.createdAt).toDateString()}</td>
                       <td>{new Date(subscription.endAt).toDateString()}</td>
-                      <td>
+                      <td className="d-flex">
                         <Button className="me-2" variant="success">
-                          ...
+                          ✏️
                         </Button>
                         <Button variant="danger">X</Button>
                       </td>

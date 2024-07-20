@@ -22,8 +22,20 @@ const GetCoaches = async (req, res) => {
 const GetUser = async (req, res) => {
   try {
     const id = req.params.id;
+
+    if (id.length < 24 || id.length > 24) {
+      return res.status(404).json({ message: "user not found!" });
+    }
+
     const result = await User.findById(id);
-    res.status(200).json(result);
+
+    if (!result) {
+      return res.status(404).json({ message: "user not found!" });
+    }
+
+    const { password, ...otherInfo } = result._doc;
+
+    res.status(200).json(otherInfo);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

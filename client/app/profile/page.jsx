@@ -6,6 +6,7 @@ import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Container, Row, Spinner } from "react-bootstrap";
 import apiRequest from "../lib/apiRequest";
+import QRCode from "react-qr-code";
 
 function ProfilePage() {
   const { currentUser } = useContext(AuthContext);
@@ -103,14 +104,18 @@ function ProfilePage() {
             </div>
 
             <div className="col-12 col-lg-4">
-              <CldImage
-                width="400"
-                height="600"
-                className="rounded w-100 h-auto "
-                src={currentUser.avatar || "GYM-Management-System/d_avatar"}
-                alt="User Avatar"
-                priority
-              />
+              <div className="d-flex flex-column justify-content-center align-items-center gap-5">
+                <CldImage
+                  width="400"
+                  height="600"
+                  className="rounded w-50 h-auto "
+                  src={currentUser.avatar || "GYM-Management-System/d_avatar"}
+                  alt="User Avatar"
+                  priority
+                />
+
+                <QRCode value={currentUser._id} />
+              </div>
             </div>
           </Row>
         ) : (

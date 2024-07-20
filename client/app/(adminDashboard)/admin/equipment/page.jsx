@@ -1,6 +1,7 @@
 "use client";
 
 import apiRequest from "@/app/lib/apiRequest";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Button, Spinner, Table } from "react-bootstrap";
 
@@ -26,7 +27,15 @@ function AdminEquipmentDashboard() {
 
   return (
     <>
-      <h1 className="lead secondary">Equipment</h1>
+      <div className="d-flex justify-content-between align-items-center">
+        <h1 className="lead secondary">Equipment</h1>
+        <Link
+          href="/"
+          className="bg-success fs-1 py-1 px-4 rounded-circle text-white"
+        >
+          +
+        </Link>
+      </div>
       <hr></hr>
       {loading ? (
         <Spinner animation="border" />
@@ -53,9 +62,9 @@ function AdminEquipmentDashboard() {
                       <td>{machine.description}</td>
                       <td>{machine.targetedMuscles}</td>
                       <td>{machine.quantity}</td>
-                      <td>
+                      <td className="d-flex">
                         <Button className="me-2" variant="success">
-                          ...
+                          ✏️
                         </Button>
                         <Button variant="danger">X</Button>
                       </td>

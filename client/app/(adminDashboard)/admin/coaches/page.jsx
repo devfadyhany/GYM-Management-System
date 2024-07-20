@@ -51,9 +51,9 @@ function AdminCoachesDashboard() {
                       <td>{coach.username}</td>
                       <td>{coach.email}</td>
                       <td>{coach.numOfClients}</td>
-                      <td>
+                      <td className="d-flex">
                         <Button className="me-2" variant="success">
-                          ...
+                        ✏️
                         </Button>
                         <Button variant="danger">X</Button>
                       </td>
