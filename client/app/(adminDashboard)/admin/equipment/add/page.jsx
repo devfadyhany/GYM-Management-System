@@ -78,6 +78,8 @@ function AddNewEquipmentPage() {
     });
 
     try {
+      setLoading(true);
+
       await apiRequest.post("/equipment", {
         images,
         name,
@@ -97,6 +99,8 @@ function AddNewEquipmentPage() {
         autoClose: 1000,
         theme: "light",
       });
+    } finally {
+      setLoading(false);
     }
   };
 

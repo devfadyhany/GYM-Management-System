@@ -92,6 +92,8 @@ function EditEquipmentPage() {
     });
 
     try {
+      setLoading(true);
+
       await apiRequest.put(`/equipment/${params.id}`, {
         name,
         description,
@@ -110,6 +112,8 @@ function EditEquipmentPage() {
         autoClose: 1000,
         theme: "light",
       });
+    } finally {
+      setLoading(true);
     }
   };
 
@@ -154,11 +158,9 @@ function EditEquipmentPage() {
               <h5>Choose targeted muscles:</h5>
               <InputGroup className="gap-5">
                 {targetedMuscles.map((muscle) => {
-                    if (equipment.targetedMuscles.includes(
-                        muscle.value
-                      )){
-                        muscle.selected = true;
-                      }
+                  if (equipment.targetedMuscles.includes(muscle.value)) {
+                    muscle.selected = true;
+                  }
                   return (
                     <FormCheck
                       key={muscle.value}
