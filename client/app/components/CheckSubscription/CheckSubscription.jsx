@@ -21,15 +21,17 @@ function CheckSubscription() {
       const userRes = await apiRequest.get(`/user/${id}`);
       setCheckedUser(userRes.data);
 
-      const subscriptionRes = await apiRequest.get(
-        `/subscription/${userRes.data.activeSubscription}`
-      );
-      setCheckedSubscription(subscriptionRes.data);
+      if (userRes.data.activeSubscription) {
+        const subscriptionRes = await apiRequest.get(
+          `/subscription/${userRes.data.activeSubscription}`
+        );
+        setCheckedSubscription(subscriptionRes.data);
 
-      if (
-        new Date().getTime() <= new Date(subscriptionRes.data.endAt).getTime()
-      ) {
-        return setSubscribed(true);
+        if (
+          new Date().getTime() <= new Date(subscriptionRes.data.endAt).getTime()
+        ) {
+          return setSubscribed(true);
+        }
       }
 
       setSubscribed(false);

@@ -30,7 +30,7 @@ function AdminEquipmentDashboard() {
       <div className="d-flex justify-content-between align-items-center">
         <h1 className="lead secondary">Equipment</h1>
         <Link
-          href="/"
+          href="/admin/equipment/add"
           className="bg-success fs-1 py-1 px-4 rounded-circle text-white"
         >
           +
@@ -48,8 +48,6 @@ function AdminEquipmentDashboard() {
                   <tr>
                     <th className="bgPrimary text-white">#</th>
                     <th className="bgPrimary text-white">Name</th>
-                    <th className="bgPrimary text-white">Description</th>
-                    <th className="bgPrimary text-white">Targeted Muscles</th>
                     <th className="bgPrimary text-white">Quantity</th>
                     <th className="bgPrimary text-white">Operations</th>
                   </tr>
@@ -60,8 +58,6 @@ function AdminEquipmentDashboard() {
                       <tr className="text-nowrap" key={index}>
                         <td>{machine._id}</td>
                         <td>{machine.name}</td>
-                        <td>{machine.description}</td>
-                        <td>{machine.targetedMuscles}</td>
                         <td>{machine.quantity}</td>
                         <td className="d-flex justify-content-center">
                           <Button className="me-2" variant="success">

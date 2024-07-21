@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const equipmentSchema = new mongoose.Schema({
   images: {
     type: [String],
-    required: true,
   },
   name: {
     type: String,
@@ -11,16 +10,14 @@ const equipmentSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    required: true,
   },
   targetedMuscles: {
     type: [String],
-    required: true,
   },
   quantity: {
     type: Number,
     min: 0,
-    required: true,
+    default: 0,
   },
 });
 
