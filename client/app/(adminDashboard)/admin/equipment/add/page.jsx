@@ -1,5 +1,6 @@
 "use client";
 
+import apiRequest from "@/app/lib/apiRequest";
 import { CldUploadWidget } from "next-cloudinary";
 import React, { useState } from "react";
 import {
@@ -12,6 +13,7 @@ import {
   Row,
   Spinner,
 } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 function AddNewEquipmentPage() {
   const [loading, setLoading] = useState(false);
@@ -60,8 +62,42 @@ function AddNewEquipmentPage() {
     },
   ];
 
-  const HandleSubmit = (e) => {
+  const HandleSubmit = async (e) => {
     e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const { name, description, quantity } = Object.fromEntries(formData);
+    let muscles = targetedMuscles.map((muscle) => {
+      if (muscle.selected) {
+        return muscle.value;
+      }
+    });
+
+    muscles = muscles.filter((element) => {
+      return element !== undefined;
+    });
+
+    try {
+      await apiRequest.post("/equipment", {
+        images,
+        name,
+        description,
+        targetedMuscles: muscles,
+        quantity,
+      });
+
+      toast.success("Machine Has Been Added Successfully!", {
+        position: "top-right",
+        autoClose: 1000,
+        theme: "light",
+      });
+    } catch (err) {
+      toast.error(err.message, {
+        position: "top-right",
+        autoClose: 1000,
+        theme: "light",
+      });
+    }
   };
 
   return (
@@ -101,8 +137,10 @@ function AddNewEquipmentPage() {
 
           <CldUploadWidget
             name="images"
-            onSuccess={(result) => setImages(result.info)}
-            uploadPreset="UserAvatar"
+            onSuccess={(result) =>
+              setImages((prev) => [...prev, result.info.public_id])
+            }
+            uploadPreset="EquipmentImages"
           >
             {({ open }) => {
               return (

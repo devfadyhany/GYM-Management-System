@@ -2,12 +2,14 @@
 
 import apiRequest from "@/app/lib/apiRequest";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Button, Spinner, Table } from "react-bootstrap";
 
 function AdminEquipmentDashboard() {
   const [equipment, setEquipment] = useState([]);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   const GetEquipment = async () => {
     try {
@@ -60,7 +62,11 @@ function AdminEquipmentDashboard() {
                         <td>{machine.name}</td>
                         <td>{machine.quantity}</td>
                         <td className="d-flex justify-content-center">
-                          <Button className="me-2" variant="success">
+                          <Button
+                            onClick={() => router.push(`equipment/edit/${machine._id}`)}
+                            className="me-2"
+                            variant="success"
+                          >
                             ✏️
                           </Button>
                           <Button variant="danger">🗑️</Button>
