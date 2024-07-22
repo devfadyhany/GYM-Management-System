@@ -48,9 +48,9 @@ const EditEquipment = async (req, res) => {
 
 const DeleteEquipment = async (req, res) => {
   try {
-    const id = req.params;
+    const id = req.params.id;
 
-    const result = await Equipment.findByIdAndDelete(id);
+    await Equipment.findByIdAndDelete(id);
 
     res
       .status(200)

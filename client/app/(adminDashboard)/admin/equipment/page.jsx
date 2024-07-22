@@ -1,18 +1,52 @@
 "use client";
 
+import MessageBox from "@/app/components/MessageBox/MessageBox";
 import apiRequest from "@/app/lib/apiRequest";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Button, Spinner, Table } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 function AdminEquipmentDashboard() {
   const [equipment, setEquipment] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState(null);
   const router = useRouter();
+
+  const CloseMB = () => {
+    setMessage(null);
+  };
+
+  const CreateMessageBox = (Item_ID, Item_Name) => {
+    setMessage({
+      item_id: Item_ID,
+      text: `Are You Sure You Want To Delete ${Item_Name}`,
+      noFunction: CloseMB,
+      yesFunction: () => DeleteEquipment(Item_ID),
+    });
+  };
+
+  const DeleteEquipment = async (id) => {
+    try {
+      const result = await apiRequest.delete(`/equipment/${id}`);
+
+      toast.success(result.data.message, {
+        position: "top-right",
+        autoClose: 1000,
+        theme: "light",
+      });
+    } catch (err) {
+      console.log(err.message);
+    } finally {
+      CloseMB();
+      GetEquipment();
+    }
+  };
 
   const GetEquipment = async () => {
     try {
+      setLoading(true);
       const res = await apiRequest.get("/equipment");
 
       setEquipment(res.data);
@@ -29,6 +63,8 @@ function AdminEquipmentDashboard() {
 
   return (
     <>
+      {message && <MessageBox message={message} />}
+
       <div className="d-flex justify-content-between align-items-center">
         <h1 className="lead secondary">Equipment</h1>
         <Link
@@ -63,13 +99,22 @@ function AdminEquipmentDashboard() {
                         <td>{machine.quantity}</td>
                         <td className="d-flex justify-content-center">
                           <Button
-                            onClick={() => router.push(`equipment/edit/${machine._id}`)}
+                            onClick={() =>
+                              router.push(`equipment/edit/${machine._id}`)
+                            }
                             className="me-2"
                             variant="success"
                           >
                             ✏️
                           </Button>
-                          <Button variant="danger">🗑️</Button>
+                          <Button
+                            variant="danger"
+                            onClick={() =>
+                              CreateMessageBox(machine._id, machine.name)
+                            }
+                          >
+                            🗑️
+                          </Button>
                         </td>
                       </tr>
                     );

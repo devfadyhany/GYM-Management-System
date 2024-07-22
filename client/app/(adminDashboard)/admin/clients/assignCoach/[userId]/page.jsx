@@ -30,7 +30,7 @@ function AssignCoachPage() {
           coachId: selectedCoach,
         });
   
-        toast.success(result.message, {
+        toast.success(result.data.message, {
           position: "top-right",
           autoClose: 1000,
           theme: "light",

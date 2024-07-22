@@ -1,5 +1,6 @@
 "use client";
 
+import MessageBox from "@/app/components/MessageBox/MessageBox";
 import apiRequest from "@/app/lib/apiRequest";
 import React, { useEffect, useState } from "react";
 import { Button, Spinner, Table } from "react-bootstrap";
@@ -8,11 +9,41 @@ import { toast } from "react-toastify";
 function AdminCoachesDashboard() {
   const [coaches, setCoaches] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState(null);
+
+  const CloseMB = () => {
+    setMessage(null);
+  };
+
+  const CreateMessageBox = (Item_ID, Item_Name) => {
+    setMessage({
+      item_id: Item_ID,
+      text: `Are You Sure You Want To Delete ${Item_Name}`,
+      noFunction: CloseMB,
+      yesFunction: () => DeleteAccount(Item_ID),
+    });
+  };
+
+  const DeleteAccount = async (id) => {
+    try {
+      const result = await apiRequest.delete(`/user/${id}`);
+
+      toast.success(result.data.message, {
+        position: "top-right",
+        autoClose: 1000,
+        theme: "light",
+      });
+    } catch (err) {
+      console.log(err.message);
+    } finally {
+      CloseMB();
+      GetCoaches();
+    }
+  };
 
   const GetCoaches = async () => {
     try {
       const res = await apiRequest.get("/user/coaches");
-
       setCoaches(res.data);
     } catch (err) {
       console.log(err.message);
@@ -23,7 +54,7 @@ function AdminCoachesDashboard() {
 
   useEffect(() => {
     GetCoaches();
-  }, [coaches]);
+  }, []);
 
   const ApproveCoach = async (coachId) => {
     try {
@@ -45,6 +76,7 @@ function AdminCoachesDashboard() {
 
   return (
     <>
+      {message && <MessageBox message={message} />}
       <h1 className="lead secondary">Coaches</h1>
       <hr></hr>
       {loading ? (
@@ -82,7 +114,14 @@ function AdminCoachesDashboard() {
                             </Button>
                           )}
 
-                          <Button variant="danger">🗑️</Button>
+                          <Button
+                            variant="danger"
+                            onClick={() =>
+                              CreateMessageBox(coach._id, coach.username)
+                            }
+                          >
+                            🗑️
+                          </Button>
                         </td>
                       </tr>
                     );

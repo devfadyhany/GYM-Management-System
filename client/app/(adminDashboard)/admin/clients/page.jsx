@@ -1,5 +1,6 @@
 "use client";
 
+import MessageBox from "@/app/components/MessageBox/MessageBox";
 import apiRequest from "@/app/lib/apiRequest";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -9,11 +10,41 @@ function AdminClientsDashboard() {
   const router = useRouter();
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState(null);
+
+  const CloseMB = () => {
+    setMessage(null);
+  };
+
+  const CreateMessageBox = (Item_ID, Item_Name) => {
+    setMessage({
+      item_id: Item_ID,
+      text: `Are You Sure You Want To Delete ${Item_Name}`,
+      noFunction: CloseMB,
+      yesFunction: () => DeleteAccount(Item_ID),
+    });
+  };
+
+  const DeleteAccount = async (id) => {
+    try {
+      const result = await apiRequest.delete(`/user/${id}`);
+
+      toast.success(result.data.message, {
+        position: "top-right",
+        autoClose: 1000,
+        theme: "light",
+      });
+    } catch (err) {
+      console.log(err.message);
+    } finally {
+      CloseMB();
+      GetClients();
+    }
+  };
 
   const GetClients = async () => {
     try {
       const res = await apiRequest.get("/user/clients");
-
       setClients(res.data);
     } catch (err) {
       console.log(err.message);
@@ -28,6 +59,7 @@ function AdminClientsDashboard() {
 
   return (
     <>
+      {message && <MessageBox message={message} />}
       <h1 className="lead secondary">Clients</h1>
       <hr></hr>
       {loading ? (
@@ -89,7 +121,14 @@ function AdminClientsDashboard() {
                             </>
                           )}
 
-                          <Button variant="danger">🗑️</Button>
+                          <Button
+                            variant="danger"
+                            onClick={() =>
+                              CreateMessageBox(client._id, client.username)
+                            }
+                          >
+                            🗑️
+                          </Button>
                         </td>
                       </tr>
                     );
