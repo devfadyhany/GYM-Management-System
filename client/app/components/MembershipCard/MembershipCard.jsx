@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { Card, CardBody, CardImg, CardText, CardTitle } from "react-bootstrap";
 import styles from "./membership.module.css";
 import { useRouter } from "next/navigation";

@@ -1,0 +1,8 @@
+.MainCard{
+    cursor: pointer;
+    transition: all ease-in-out 0.05s;
+}
+
+.MainCard:hover {
+    border: 2px solid var(--secondaryColor);
+}
