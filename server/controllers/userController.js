@@ -24,11 +24,11 @@ const ApproveCoach = async (req, res) => {
   const coachId = req.params.id;
 
   try {
-    const result = await User.findByIdAndUpdate(coachId, { Approved: true });
+    await User.findByIdAndUpdate(coachId, { Approved: true });
 
     res.status(200).json({ message: "Coach has been approved!" });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: "Failed To Approve Coach" });
   }
 };
 
@@ -52,7 +52,7 @@ const AssignCoach = async (req, res) => {
 
     res.status(200).json({ message: "Coach has been assigned successfully!" });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: "Failed To Assign Coach" });
   }
 };
 
@@ -88,13 +88,13 @@ const EditUser = async (req, res) => {
       user.password = hashedPassword;
     }
 
-    const result = await User.findByIdAndUpdate(id, user);
+    await User.findByIdAndUpdate(id, user);
 
     res
       .status(200)
-      .json({ message: "user data has been updated successfully" });
+      .json({ message: "User Data Has Been Updated Successfully!" });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: "Failed To Ubdate User Data" });
   }
 };
 
@@ -102,11 +102,24 @@ const DeleteUser = async (req, res) => {
   try {
     const id = req.params.id;
 
-    const result = await User.findByIdAndDelete(id);
+    // Get User Data
+    const UserData = await User.findById(id);
 
-    res.status(200).json({ message: "user has been deleted successfully!" });
+    if (UserData.isCoach) {
+      // if user is coach: delete relations with clients and subscriptions.
+      await User.updateMany({ assignedCoachId: id }, { assignedCoachId: "" });
+      await subscription.updateMany({ coachId: id }, { coachId: "" });
+    } else {
+      // if user is normal client: delete subscription history.
+      await subscription.deleteMany({ clientId: id });
+    }
+
+    // finally delete user is account
+    await User.findByIdAndDelete(id);
+
+    res.status(200).json({ message: "User Has Been Deleted Successfully!" });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: "Failed To Delete User" });
   }
 };
 

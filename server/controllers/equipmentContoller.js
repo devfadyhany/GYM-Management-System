@@ -14,7 +14,16 @@ const AddEquipment = async (req, res) => {
 
 const GetEquipments = async (req, res) => {
   try {
-    const equipments = await Equipment.find();
+    let equipment;
+
+    const name = req.query.name;
+
+    if (name) {
+      equipment = await Equipment.find({ name: name });
+    } else {
+      equipment = await Equipment.find();
+    }
+
     res.status(200).json(equipments);
   } catch (err) {
     res.status(500).json({ error: err.message });
