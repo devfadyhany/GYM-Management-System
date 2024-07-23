@@ -19,12 +19,14 @@ const GetEquipments = async (req, res) => {
     const name = req.query.name;
 
     if (name) {
-      equipment = await Equipment.find({ name: name });
+      equipment = await Equipment.find({
+        name: { $regex: ".*" + name + ".*" },
+      });
     } else {
       equipment = await Equipment.find();
     }
 
-    res.status(200).json(equipments);
+    res.status(200).json(equipment);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
