@@ -1,5 +1,6 @@
 const subscription = require("../models/subscription");
 const User = require("../models/user");
+const chat = require("../models/chat");
 const bcrypt = require("bcrypt");
 
 const GetClients = async (req, res) => {
@@ -45,10 +46,11 @@ const AssignCoach = async (req, res) => {
       numOfClients: coach.numOfClients + 1,
     });
 
-    await subscription.findOneAndUpdate(
-      { clientId: clientId },
-      { coachId: coachId }
-    );
+    await subscription.findOneAndUpdate({ clientId }, { coachId });
+
+    await chat.deleteOne({ clientId });
+
+    await chat.create({ clientId, coachId });
 
     res.status(200).json({ message: "Coach has been assigned successfully!" });
   } catch (err) {

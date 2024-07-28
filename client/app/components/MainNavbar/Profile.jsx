@@ -2,7 +2,7 @@ import { CldImage } from "next-cloudinary";
 import React from "react";
 import { NavDropdown, Row } from "react-bootstrap";
 
-function Profile({ user, updateUser }) {
+function Profile({ user, updateUser, subscription }) {
   const HandleLogout = () => {
     updateUser(null);
   };
@@ -20,7 +20,23 @@ function Profile({ user, updateUser }) {
 
       <NavDropdown className="col-6" title={user.username} id="user-menu">
         <NavDropdown.Item href="/profile">👤Profile</NavDropdown.Item>
-        {user.isAdmin && <NavDropdown.Item href="/admin">⚙️Admin Dashboard</NavDropdown.Item>}
+        {user.isAdmin && (
+          <NavDropdown.Item href="/admin">⚙️Admin Dashboard</NavDropdown.Item>
+        )}
+        {subscription && (
+          <>
+            {subscription.planType !== "basic" && !subscription.coachId ? (
+              <NavDropdown.Item href="/chooseCoach">
+                💪Choose Coach
+              </NavDropdown.Item>
+            ) : (
+              <NavDropdown.Item href="/chat">💬Chat</NavDropdown.Item>
+            )}
+          </>
+        )}
+        {user.isCoach && (
+          <NavDropdown.Item href="/chat">💬Chat</NavDropdown.Item>
+        )}
         <NavDropdown.Divider />
         <NavDropdown.Item onClick={HandleLogout}>↩️LogOut</NavDropdown.Item>
       </NavDropdown>

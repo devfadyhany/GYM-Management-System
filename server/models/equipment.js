@@ -7,6 +7,7 @@ const equipmentSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
+    unique: [true, "Equipment name must be unique"],
   },
   description: {
     type: String,

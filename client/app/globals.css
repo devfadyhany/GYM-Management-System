@@ -28,10 +28,20 @@ a {
 
 .bgPrimary {
   background-color: var(--primaryColor) !important;
+  transition: all ease-in-out 0.2s;
+}
+
+.bgPrimary:hover {
+  background-color: var(--primaryVariant) !important;
 }
 
 .bgSecondary {
   background-color: var(--secondaryColor) !important;
+  transition: all ease-in-out 0.2s;
+}
+
+.bgSecondary:hover {
+  background-color: var(--secondaryVariant) !important;
 }
 
 .BoldText {

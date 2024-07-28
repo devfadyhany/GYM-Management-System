@@ -12,12 +12,17 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     lowercase: true,
-    unique: true,
+    unique: [true, "User Already Exists"],
   },
   password: {
     type: String,
     required: true,
   },
+  /* 
+  Not the best usecase for roles:
+    - Should have turn it into a single string variable 'role'
+    - Used an ENUM in the controller to define its types.
+  */
   isCoach: {
     type: Boolean,
     default: false,

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Container,
   Nav,
@@ -15,6 +15,7 @@ import { usePathname } from "next/navigation";
 import Profile from "./Profile";
 import AuthLinks from "./AuthLinks";
 import { AuthContext } from "@/app/context/AuthContext";
+import apiRequest from "@/app/lib/apiRequest";
 
 const Links = [
   {
@@ -27,16 +28,27 @@ const Links = [
     label: "Memberships",
     path: "/memberships",
   },
-  {
-    key: "Equipment",
-    label: "Equipment",
-    path: "/equipment",
-  },
 ];
 
 function MainNavbar() {
   const { currentUser, UpdateUser } = useContext(AuthContext);
+  const [subscription, setSubscription] = useState(null);
   const pathname = usePathname();
+
+  const RetreiveSubscription = async () => {
+    try {
+      const result = await apiRequest.get(
+        `/subscription/${currentUser.activeSubscription}`
+      );
+      setSubscription(result.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    RetreiveSubscription();
+  }, [currentUser]);
 
   return (
     <Navbar expand="lg" className={`fixed-top ${styles.mainNavbar}`}>
@@ -64,7 +76,11 @@ function MainNavbar() {
 
             {/* Authentication Area */}
             {currentUser ? (
-              <Profile user={currentUser} updateUser={UpdateUser} />
+              <Profile
+                subscription={subscription}
+                user={currentUser}
+                updateUser={UpdateUser}
+              />
             ) : (
               <AuthLinks />
             )}
