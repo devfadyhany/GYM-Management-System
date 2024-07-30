@@ -25,18 +25,24 @@ function Profile({ user, updateUser, subscription }) {
         )}
         {subscription && (
           <>
-            {subscription.planType !== "basic" && !subscription.coachId ? (
-              <NavDropdown.Item href="/chooseCoach">
-                💪Choose Coach
-              </NavDropdown.Item>
-            ) : (
-              <NavDropdown.Item href="/chat">💬Chat</NavDropdown.Item>
+            {subscription.planType !== "basic" && (
+              <>
+                <NavDropdown.Item href="/choose-coach">
+                  💪Choose Coach
+                </NavDropdown.Item>
+                {subscription.planType === "premium" && (
+                  <NavDropdown.Item href="/schedule">
+                    📅Schedule
+                  </NavDropdown.Item>
+                )}
+              </>
             )}
           </>
         )}
-        {user.isCoach && (
-          <NavDropdown.Item href="/chat">💬Chat</NavDropdown.Item>
-        )}
+        {user.isCoach ||
+          (user.assignedCoachId && (
+            <NavDropdown.Item href="/chat">💬Chat</NavDropdown.Item>
+          ))}
         <NavDropdown.Divider />
         <NavDropdown.Item onClick={HandleLogout}>↩️LogOut</NavDropdown.Item>
       </NavDropdown>

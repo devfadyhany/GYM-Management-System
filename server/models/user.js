@@ -1,4 +1,36 @@
 const mongoose = require("mongoose");
+const Day = require("./day");
+
+const initialSchedule = [
+  {
+    title: "Sunday",
+    body: "",
+  },
+  {
+    title: "Monday",
+    body: "",
+  },
+  {
+    title: "Tuesday",
+    body: "",
+  },
+  {
+    title: "Wednesday",
+    body: "",
+  },
+  {
+    title: "Thursday",
+    body: "",
+  },
+  {
+    title: "Friday",
+    body: "",
+  },
+  {
+    title: "Saturday",
+    body: "",
+  },
+];
 
 const userSchema = new mongoose.Schema({
   avatar: {
@@ -45,9 +77,9 @@ const userSchema = new mongoose.Schema({
     min: 0,
     max: 5,
   },
-  scheduleId: {
-    type: mongoose.SchemaTypes.ObjectId,
-    ref: "Schedule",
+  schedule: {
+    type: [Day.schema],
+    default: initialSchedule,
   },
   Approved: {
     type: Boolean,
