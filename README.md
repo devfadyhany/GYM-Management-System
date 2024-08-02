@@ -30,6 +30,7 @@ Simple MERN Stack application for managing a GYM.
   ##### Front-End📱:
   <ul>
     <li>Next.JS</li>
+    <li>React Bootstrap</li>
     <li>Cloudinary</li>
   </ul>
   
@@ -42,3 +43,7 @@ Simple MERN Stack application for managing a GYM.
     <li>Stripe</li>
   </ul>
 </ul>
+
+<hr>
+
+#### This project is not perfect but at least it's a step forward towards my learning goal.
