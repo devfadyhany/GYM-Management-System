@@ -2,6 +2,7 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import {
+  Alert,
   Container,
   Nav,
   Navbar,
@@ -51,43 +52,54 @@ function MainNavbar() {
   }, [currentUser]);
 
   return (
-    <Navbar expand="lg" className={`fixed-top ${styles.mainNavbar}`}>
-      <Container>
-        <NavbarBrand className={`BoldText ${styles.navbarLogo}`}>
-          GYM
-        </NavbarBrand>
-        <NavbarToggle aria-controls="basic-navbar-nav" />
-        <NavbarCollapse id="basic-navbar-nav">
-          <Nav className="ms-auto gap-3 BoldText align-items-lg-center">
-            {/* Menu Links */}
-            {Links.map((linkElement) => {
-              return (
-                <Link
-                  key={linkElement.key}
-                  className={`text-dark nav-link ${
-                    pathname === linkElement.path ? `${styles.active}` : ""
-                  } ${styles.link}`}
-                  href={linkElement.path}
-                >
-                  {linkElement.label}
-                </Link>
-              );
-            })}
+    <>
+      <Navbar expand="lg" className={`fixed-top ${styles.mainNavbar}`}>
+        <Container>
+          <NavbarBrand className={`BoldText ${styles.navbarLogo}`}>
+            GYM
+          </NavbarBrand>
+          <NavbarToggle aria-controls="basic-navbar-nav" />
+          <NavbarCollapse id="basic-navbar-nav">
+            <Nav className="ms-auto gap-3 BoldText align-items-lg-center">
+              {/* Menu Links */}
+              {Links.map((linkElement) => {
+                return (
+                  <Link
+                    key={linkElement.key}
+                    className={`text-dark nav-link ${
+                      pathname === linkElement.path ? `${styles.active}` : ""
+                    } ${styles.link}`}
+                    href={linkElement.path}
+                  >
+                    {linkElement.label}
+                  </Link>
+                );
+              })}
 
-            {/* Authentication Area */}
-            {currentUser ? (
-              <Profile
-                subscription={subscription}
-                user={currentUser}
-                updateUser={UpdateUser}
-              />
-            ) : (
-              <AuthLinks />
-            )}
-          </Nav>
-        </NavbarCollapse>
-      </Container>
-    </Navbar>
+              {/* Authentication Area */}
+              {currentUser ? (
+                <Profile
+                  subscription={subscription}
+                  user={currentUser}
+                  updateUser={UpdateUser}
+                />
+              ) : (
+                <AuthLinks />
+              )}
+            </Nav>
+          </NavbarCollapse>
+        </Container>
+      </Navbar>
+      {currentUser && (
+        <>
+          {currentUser.isCoach && !currentUser.Approved && (
+            <Alert style={{position: "absolute", top: "100px", zIndex: "10"}} variant="info">
+              Your Account is On Hold, Waiting For Admin Approval.
+            </Alert>
+          )}
+        </>
+      )}
+    </>
   );
 }
 

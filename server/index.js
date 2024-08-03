@@ -17,6 +17,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 
+// Socket.io Server Initialization
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: { origin: process.env.CLIENT_URL, methods: ["GET", "POST"] },
@@ -40,6 +41,7 @@ app.use("/api/v1/equipment", equipmentRoutes);
 app.use("/api/v1/subscription", subscriptionRoutes);
 app.use("/api/v1/chat", chatRoutes);
 
+// Socket.io Events Listening
 io.on("connection", (socket) => {
   console.log("a user connected with socket id: ", socket.id);
 
