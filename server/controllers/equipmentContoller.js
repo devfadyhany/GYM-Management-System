@@ -6,9 +6,9 @@ const AddEquipment = async (req, res) => {
 
     const result = await Equipment.create(equipment);
 
-    res.status(200).json(result);
+    return res.status(200).json(result);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
 };
 
@@ -26,9 +26,9 @@ const GetEquipments = async (req, res) => {
       equipment = await Equipment.find();
     }
 
-    res.status(200).json(equipment);
+    return res.status(200).json(equipment);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
 };
 
@@ -36,9 +36,9 @@ const GetEquipment = async (req, res) => {
   try {
     const id = req.params.id;
     const result = await Equipment.findById(id);
-    res.status(200).json(result);
+    return res.status(200).json(result);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
 };
 
@@ -49,11 +49,11 @@ const EditEquipment = async (req, res) => {
 
     const result = await Equipment.findByIdAndUpdate(id, equipment);
 
-    res
+    return res
       .status(200)
       .json({ message: "equipment has been updated successfully" });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
 };
 

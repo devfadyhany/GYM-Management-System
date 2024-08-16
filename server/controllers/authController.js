@@ -22,9 +22,9 @@ const Register = async (req, res) => {
     // Add the new user into the DB
     const result = await User.create(user);
 
-    res.status(200).json(result);
+    return res.status(200).json(result);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
 };
 
@@ -56,7 +56,7 @@ const Login = async (req, res) => {
         }
       );
 
-      res
+      return res
         .cookie("token", token, {
           httpOnly: true,
           // secure: true,
@@ -65,15 +65,18 @@ const Login = async (req, res) => {
         .status(200)
         .json(foundUser);
     } else {
-      res.status(401).json({ message: "Wrong Credintials!" });
+      return res.status(401).json({ message: "Wrong Credintials!" });
     }
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
 };
 
 const Logout = async (req, res) => {
-  res.clearCookie("token").status(200).json({ message: "Logout Successful!" });
+  return res
+    .clearCookie("token")
+    .status(200)
+    .json({ message: "Logout Successful!" });
 };
 
 module.exports = { Register, Login, Logout };
