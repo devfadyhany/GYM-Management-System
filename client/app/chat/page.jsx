@@ -30,7 +30,9 @@ function ChatListPage() {
           setChatUsers(result.data);
         });
       } else {
-        const result = await apiRequest.get(`/user/${retreviedChats.coachId}`);
+        const result = await apiRequest.get(
+          `/user/${currentUser.assignedCoachId}`
+        );
         setChatUsers(result.data);
       }
     } catch (err) {
@@ -69,7 +71,9 @@ function ChatListPage() {
               {chatUsers && (
                 <Link
                   className="bgPrimary text-white p-5 rounded"
-                  href={`/chat/${currentUser.isCoach ? chats[0]._id : chats._id}`}
+                  href={`/chat/${
+                    currentUser.isCoach ? chats[0]._id : chats._id
+                  }`}
                 >
                   {chatUsers.username}
                 </Link>
