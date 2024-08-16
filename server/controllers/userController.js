@@ -74,9 +74,9 @@ const GetUser = async (req, res) => {
 
     const { password, ...otherInfo } = result._doc;
 
-    res.status(200).json(otherInfo);
+    return res.status(200).json(otherInfo);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
 };
 
