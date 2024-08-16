@@ -36,10 +36,10 @@ db.once("open", () => {
 });
 
 // Routes
-app.use("/api/v1/user", userRoutes);
-app.use("/api/v1/equipment", equipmentRoutes);
-app.use("/api/v1/subscription", subscriptionRoutes);
-app.use("/api/v1/chat", chatRoutes);
+app.use("/user", userRoutes);
+app.use("/equipment", equipmentRoutes);
+app.use("/subscription", subscriptionRoutes);
+app.use("/chat", chatRoutes);
 
 // Socket.io Events Listening
 io.on("connection", (socket) => {
