@@ -12,7 +12,7 @@ export default function Home() {
             <div className={`col-12 col-lg-6 ${styles.HeroText}`}>
               <h1 className="lead BoldText">Unleash Your Potential</h1>
               <h2>
-                We'll help you reach your fitness goals in a supportive and
+                We&apos;ll help you reach your fitness goals in a supportive and
                 motivating environment.
               </h2>
               <Link
