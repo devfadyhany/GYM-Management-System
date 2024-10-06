@@ -42,9 +42,9 @@ const CreateStripeSession = async (req, res) => {
     // store session id
     await checkouts.create({ userId, sessionId, numOfMonths });
 
-    res.json({ url: session.url });
+    return res.json({ url: session.url });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
 };
 
@@ -77,7 +77,6 @@ const CheckStripePaymentSession = async (req, res) => {
     );
 
     if (session && session.status === "complete") {
-
       const result = await subscription.create({
         clientId: userId,
         planType: membership,
@@ -86,12 +85,12 @@ const CheckStripePaymentSession = async (req, res) => {
 
       await user.updateOne({ _id: userId }, { activeSubscription: result._id });
 
-      res.status(200).json(result);
-    }else {
-      res.status(404).json({message: "Subscription Failed"})
+      return res.status(200).json(result);
+    } else {
+      return res.status(404).json({ message: "Subscription Failed" });
     }
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
 };
 

@@ -16,9 +16,9 @@ const getUserChats = async (req, res) => {
       result = await chat.findOne({ clientId: id });
     }
 
-    res.status(200).json(result);
+    return res.status(200).json(result);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
 };
 
@@ -28,9 +28,9 @@ const getChatMessages = async (req, res) => {
   try {
     const result = await chat.findById(chatId).select("messages -_id");
 
-    res.status(200).json(result);
+    return res.status(200).json(result);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
 };
 
@@ -46,9 +46,9 @@ const sendMessage = async (req, res) => {
     currentChat.messages.push(item);
     currentChat.save();
 
-    res.status(200).json(item);
+    return res.status(200).json(item);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
 };
 

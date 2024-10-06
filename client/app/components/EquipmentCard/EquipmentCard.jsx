@@ -32,7 +32,7 @@ function EquipmentCard({ equipment }) {
         <div className="d-flex justify-content-start gap-3">
           {equipment.targetedMuscles.map((muscle) => {
             return (
-              <span className="bgSecondary text-white p-2 rounded">
+              <span key={muscle} className="bgSecondary text-white p-2 rounded">
                 {muscle}
               </span>
             );

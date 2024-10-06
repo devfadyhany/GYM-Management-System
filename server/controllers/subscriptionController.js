@@ -5,9 +5,9 @@ const GetAllSubscriptions = async (req, res) => {
   try {
     const result = await subscription.find();
 
-    res.status(200).json(result);
+    return res.status(200).json(result);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
 };
 
@@ -17,9 +17,9 @@ const GetUserSubscription = async (req, res) => {
 
     const result = await subscription.findById(subscriptionId);
 
-    res.status(200).json(result);
+    return res.status(200).json(result);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
 };
 
@@ -34,12 +34,16 @@ const CancelSubscription = async (req, res) => {
 
     await subscription.findByIdAndDelete(subscriptionId);
 
-    res
+    return res
       .status(200)
       .json({ message: "Subscription Has Been Cancelled Successfully!" });
   } catch (err) {
-    res.status(500).json({ error: "Failed To Cancel Subscription." });
+    return res.status(500).json({ error: "Failed To Cancel Subscription." });
   }
 };
 
-module.exports = { GetAllSubscriptions, GetUserSubscription, CancelSubscription };
+module.exports = {
+  GetAllSubscriptions,
+  GetUserSubscription,
+  CancelSubscription,
+};

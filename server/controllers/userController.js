@@ -6,18 +6,18 @@ const bcrypt = require("bcrypt");
 const GetClients = async (req, res) => {
   try {
     const users = await User.find({ isCoach: false });
-    res.status(200).json(users);
+    return res.status(200).json(users);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
 };
 
 const GetCoaches = async (req, res) => {
   try {
     const users = await User.find({ isCoach: true });
-    res.status(200).json(users);
+    return res.status(200).json(users);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
 };
 
@@ -27,9 +27,9 @@ const ApproveCoach = async (req, res) => {
   try {
     await User.findByIdAndUpdate(coachId, { Approved: true });
 
-    res.status(200).json({ message: "Coach has been approved!" });
+    return res.status(200).json({ message: "Coach has been approved!" });
   } catch (err) {
-    res.status(500).json({ error: "Failed To Approve Coach" });
+    return res.status(500).json({ error: "Failed To Approve Coach" });
   }
 };
 
@@ -52,9 +52,11 @@ const AssignCoach = async (req, res) => {
 
     await chat.create({ clientId, coachId });
 
-    res.status(200).json({ message: "Coach has been assigned successfully!" });
+    return res
+      .status(200)
+      .json({ message: "Coach has been assigned successfully!" });
   } catch (err) {
-    res.status(500).json({ error: "Failed To Assign Coach" });
+    return res.status(500).json({ error: "Failed To Assign Coach" });
   }
 };
 
@@ -74,9 +76,9 @@ const GetUser = async (req, res) => {
 
     const { password, ...otherInfo } = result._doc;
 
-    res.status(200).json(otherInfo);
+    return res.status(200).json(otherInfo);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
 };
 
@@ -92,11 +94,11 @@ const EditUser = async (req, res) => {
 
     await User.findByIdAndUpdate(id, user);
 
-    res
+    return res
       .status(200)
       .json({ message: "User Data Has Been Updated Successfully!" });
   } catch (err) {
-    res.status(500).json({ error: "Failed To Ubdate User Data" });
+    return res.status(500).json({ error: "Failed To Ubdate User Data" });
   }
 };
 
@@ -119,9 +121,11 @@ const DeleteUser = async (req, res) => {
     // finally delete user is account
     await User.findByIdAndDelete(id);
 
-    res.status(200).json({ message: "User Has Been Deleted Successfully!" });
+    return res
+      .status(200)
+      .json({ message: "User Has Been Deleted Successfully!" });
   } catch (err) {
-    res.status(500).json({ error: "Failed To Delete User" });
+    return res.status(500).json({ error: "Failed To Delete User" });
   }
 };
 
