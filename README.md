@@ -1,4 +1,4 @@
-# GYM-Management-app
+# GYM-Management-System
 MERN Stack application for managing a GYM.
 <hr>
 
